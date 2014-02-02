@@ -1,32 +1,33 @@
 settings = require(__dirname + '/functions/config')
 _ = require('underscore')
 request = require('superagent')
-#exec = require('child_process').exec
 com = require('node-comline')
 
 command = _.keys(com())
 
-#zeroBasedCommandLength = command.length -1
-
-#console.log zeroBasedCommandLength
-
-#console.log command
 
 webserviceUrl = settings.get("task-server-url")
 
 addTask= (taskName)->
     console.log taskName
 
-###if command.length <= 2
-    console.log "Incorrect use - call 'code-time help all' for useage"
-    process.exit(0)###
+outputIncorrectUseage= (optionalError)->
+    message = "\nIncorrect use \nFor correct use run 'code-time help'. "
+    if optionalError
+        message = message + optionalError
+    console.log message
+
+commandAction= (command)->
+    task = command.splice(2, command.length) #removes the first two parts of the command
+    task = task.toString().replace(",", " ")
+    return task
+
 
 switch command[0]
     when "task" 
         switch command[1]
-            when "add"                
-                task = command.splice(2, command.length) #removes the first two parts of the command
-                task = task.toString().replace(",", " ")
+            when "add"
+                task = commandAction(command)
                 request
                     .post(webserviceUrl)
                     .send({name : task})
@@ -36,8 +37,7 @@ switch command[0]
                         else
                             console.log "Something went wrong. HTTP status: " + res.status)
             when "remove"                
-                task = command.splice(2, command.length) #removes the first two parts of the command
-                task = task.toString().replace(",", " ")
+                task = commandAction(command)
                 request
                     .del(webserviceUrl)
                     .send({name : task})
@@ -54,18 +54,26 @@ switch command[0]
                         if res.status is 200
                             _.each(res.body,(task)->
                                 console.log task)
-                            #console.log res.body
                         else
                             console.log "Something went wrong. HTTP status: " + res.status)
+            else
+                outputIncorrectUseage()
                 
     when "help"
-        switch command[1]
-            when "all"
-                console.log "###################"
-                console.log "application usage: "
-                console.log "task usage: "
+        console.log " "          
+        console.log "code-time against tasks:"
+        console.log " "
+        console.log "code-time <task> <add | remove | list | start | complete> <task-name>"
+        console.log " "
+        console.log "Example:"
+        console.log "code-time task start something-amazing"
+        console.log " "
+        console.log "code-time help  - this menu"
+        console.log " "
+        console.log " "
+
     else
-        console.log "Incorrect use - call code-time help all"
+        outputIncorrectUseage()
 
 
 

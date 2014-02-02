@@ -1,5 +1,5 @@
 {
-    "youtrack-url" : "",
+    "task-server-url" : "http://192.168.90.242:8492/task",
 	"userSettings" : {
 		"user" : "",
 		"pass" : ""
