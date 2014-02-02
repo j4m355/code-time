@@ -1,0 +1,26 @@
+{
+  "name": "code-time",
+  "version": "0.0.10",
+  "description": "save time",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository" : {
+    "type" : "git",
+    "url" : "git@github.com:j4m355/code-time.git"
+    },
+  "dependencies": {
+    "coffee-script": "~1.4.0",
+    "nconf": "~0.6.7",
+    "underscore" : "*",
+    "superagent" : "*",
+    "node-comline" : "*"
+  },
+  "bin": {
+    "code-time": "./bin/code-time"
+    },
+  "repository": "",
+  "author": "j4m355",
+  "license": "Apache"
+}
