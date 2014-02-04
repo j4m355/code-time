@@ -43,7 +43,7 @@ helpMenu= ()->
     console.log " " 
     console.log "code-time setup <domain | calendarname | user | password>"
     console.log " "
-    console.log "note: username is your login minus the @domain"
+    console.log "note: no full stops in domain or username - use spaces eg mydomain com"
     console.log " "
     console.log " "
     console.log "code-time <task> <add | remove | list | start | complete | current> <task-name>"
