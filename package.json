@@ -15,7 +15,10 @@
     "nconf": "~0.6.7",
     "underscore" : "*",
     "superagent" : "*",
-    "node-comline" : "*"
+    "node-comline" : "*",
+    "complete" : "*",
+    "googleapis" : "*", 
+    "jsonfile" : "*"
   },
   "bin": {
     "code-time": "./bin/code-time"
