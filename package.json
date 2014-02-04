@@ -1,6 +1,6 @@
 {
   "name": "code-time",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "save time",
   "main": "index.js",
   "scripts": {
@@ -17,8 +17,7 @@
     "superagent" : "*",
     "node-comline" : "*",
     "complete" : "*",
-    "googleapis" : "*", 
-    "jsonfile" : "*"
+    "googleapis" : "*"
   },
   "bin": {
     "code-time": "./bin/code-time"
