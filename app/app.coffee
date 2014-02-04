@@ -35,6 +35,13 @@ returnCompleteList= ()->
             if res.status is 200
                 return res.body)
 
+giveMeHackyDots= (item)->
+    item = item.toString().replace(",", ".")
+    item = item.toString().replace(" ", ".")
+    return item
+
+
+
 helpMenu= ()->
     console.log " "          
     console.log "code-time against tasks:"
@@ -126,32 +133,37 @@ switch command[0]
     when "setup"
         switch command[1]
             when "calendarname"
-                calendar = commandAction(command)
-                calendar = calendar.toString().replace(",", ".")
-                calendar = calendar.toString().replace(" ", ".")
-                debugger
+                calendar = giveMeHackyDots(commandAction(command))
                 settings.set('googleSettings:calendarname', calendar)
-                settings.save()                
-                console.log "setting calendar name: " + calendar
+                settings.save((err)->
+                    if err 
+                        console.log err
+                    else
+                        console.log "setting calendar name: " + calendar)             
             when "user"
-                username = commandAction(command)
-                username = username.toString().replace(",", ".")
-                username = username.toString().replace(" ", ".")
+                username = giveMeHackyDots(commandAction(command))
                 settings.set('googleSettings:user', username)  
-                settings.save() 
-                console.log "user name: " + username
+                settings.save((err)->
+                    if err
+                        console.log err
+                    else
+                        console.log "user name: " + username)                
             when "password"
                 password = commandAction(command)
                 settings.set('googleSettings:password', password) 
-                settings.save()  
-                console.log "username name: " + password
+                settings.save((err)->
+                    if err
+                        console.log err
+                    else
+                        console.log "saved password")
             when "domain"
-                domain = commandAction(command)
-                domain = domain.toString().replace(",", ".")
-                domain = domain.toString().replace(" ", ".")
+                domain = giveMeHackyDots(commandAction(command))
                 settings.set('googleSettings:domain', domain)
-                settings.save() 
-                console.log "domain: " + domain
+                settings.save((err)->
+                    if err
+                        console.log err
+                    else
+                        console.log "domain: " + domain) 
             else
                 outputIncorrectUseage()
     when "help"
